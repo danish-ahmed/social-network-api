@@ -3,7 +3,7 @@ var Router = express.Router();
 var userController = require('./user.controller');
 var validate = require('express-validation')
 var userValidation = require('./user.validation')
-var authLocal = require('../../services/auth.services')
+var authLocal = require('../../services/auth.services').authLocal;
 
 var validate = require('express-validation')
 var userValidation = require('./user.validation')

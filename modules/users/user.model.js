@@ -5,6 +5,9 @@ var bcrypt = require('bcrypt-nodejs');
 var hashSync = require('bcrypt-nodejs').hashSync;
 var compareSync = require('bcrypt-nodejs').compareSync;
 
+var jwt = require('jsonwebtoken');
+var constants = require('../../config/constants');
+
 var userSchema = new Schema({
     email:{
         type:String,
@@ -58,6 +61,21 @@ userSchema.methods = {
     },
     authenticatePassword: function(password){
         return compareSync(password, this.password)
+    },
+    createToken: function(){
+        return jwt.sign(
+            {
+            _id: this._id
+            },
+            constants.JWT_SECRET
+        )
+    },
+    toJSON: function(){
+        return {
+            _id: this.id,
+            userName: this.userName,
+            token: `JWT ${this.createToken()}`
+        }
     }
 }
 
