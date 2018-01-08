@@ -4,6 +4,7 @@ var validator = require('validator');
 var bcrypt = require('bcrypt-nodejs');
 var hashSync = require('bcrypt-nodejs').hashSync;
 var compareSync = require('bcrypt-nodejs').compareSync;
+var uniqueValidator = require('mongoose-unique-validator')
 
 var jwt = require('jsonwebtoken');
 var constants = require('../../config/constants');
@@ -46,6 +47,10 @@ var userSchema = new Schema({
         trim:true,
         minlength:[6, 'Password should be atleast 6 characters long'],
     }
+}, { timestamps: true })
+
+userSchema.plugin(uniqueValidator, {
+    message: '{VALUE} already taken'
 })
 // BEFORE SAVE HASH PASSWORD
 userSchema.pre('save', function(next){

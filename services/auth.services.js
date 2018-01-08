@@ -21,9 +21,10 @@ const localstrategy = new LocalStrategy(localOpts, function(email, password, don
     });
 })
 
+
 // JWT STRATEGY
 const jwtOpts = {
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken('authorization'),
+    jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt'),
     secretOrKey: constants.JWT_SECRET
 };
 
